@@ -1,0 +1,31 @@
+{
+  "name": "tourism-agency-social-network-app",
+  "version": "1.0.0",
+  "description": "## project 06 INCO",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loyannec/tourism-agency-social-network-app.git"
+  },
+  "keywords": [
+    "node",
+    "ajax",
+    "javascript",
+    "express",
+    "mongodb",
+    "react",
+    "jquery"
+  ],
+  "author": "Loyanne Cristine, Bharti Madnani and Marguerita Pizza",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/loyannec/tourism-agency-social-network-app/issues"
+  },
+  "homepage": "https://github.com/loyannec/tourism-agency-social-network-app#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
