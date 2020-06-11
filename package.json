@@ -29,6 +29,7 @@
   "homepage": "https://github.com/loyannec/tourism-agency-social-network-app#readme",
   "dependencies": {
     "cookie-parser": "^1.4.5",
+    "debug": "^4.1.1",
     "express": "^4.17.1",
     "mongodb": "^3.5.8",
     "nodemon": "^2.0.4"
