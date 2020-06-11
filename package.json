@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
+    "watch": "nodemon --ext js,handlebars --ignore public",
     "build-db": "node db/init-db.js"
   },
   "repository": {
@@ -28,9 +29,11 @@
   },
   "homepage": "https://github.com/loyannec/tourism-agency-social-network-app#readme",
   "dependencies": {
+    "connect-livereload": "^0.6.1",
     "cookie-parser": "^1.4.5",
     "debug": "^4.1.1",
     "express": "^4.17.1",
+    "livereload": "^0.9.1",
     "mongodb": "^3.5.8",
     "nodemon": "^2.0.4"
   }
