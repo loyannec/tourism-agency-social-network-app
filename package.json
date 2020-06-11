@@ -34,6 +34,7 @@
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "handlebars": "^4.7.6",
+    "http-errors": "^1.7.3",
     "livereload": "^0.9.1",
     "mongodb": "^3.5.8",
     "nodemon": "^2.0.4"
