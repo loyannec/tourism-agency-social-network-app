@@ -37,6 +37,7 @@
     "http-errors": "^1.7.3",
     "livereload": "^0.9.1",
     "mongodb": "^3.5.8",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.4"
   }
 }
