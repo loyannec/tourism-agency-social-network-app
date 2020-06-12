@@ -4,12 +4,13 @@ require('./db-connection')((db, client) => {
         if (err) throw err;
         console.log("Collection is created!");
         // Close the connection to db when you are done with it
-        client.close();
+        // client.close();
     });
+
     db.createCollection("locations", function(err, result) {
         if (err) throw err;
         console.log("Collection is created!");
         // Close the connection to db when you are done with it
-        client.close();
+        // client.close();
     });
 });
