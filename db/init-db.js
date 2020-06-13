@@ -13,4 +13,11 @@ require('./db-connection')((db, client) => {
         // Close the connection to db when you are done with it
         // client.close();
     });
+    db.createCollection("userLocationRecomendations", function(err, result) {
+        if (err) throw err;
+        console.log("Collection is created!");
+        // Close the connection to db when you are done with it
+        // client.close();
+    });
+    client.close();
 });
