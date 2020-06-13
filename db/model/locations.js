@@ -6,28 +6,30 @@ Locations schema
 const locationsSchema = mongoose.Schema({
     name: {
         type: String,
+        trim:true,
         required: true
     },
     locationImage: {
-        type: String,
+        type: Buffer,
         required: true
     },
     description: {
-        type: String
+        type: String,
         required: true
     },
     isValidated: {
-        type: Boolean
-        required: true
+        type: Boolean,
+        required: true,
+        default:false
     },
     comments: {
-        type: String
+        type: String,
         required: true
     },
     likes: {
-        type: Number
+        type: Number,
         required: true
     }
 });
 
-const locations = module.exports = mongoose.model('locations', locationsSchema);
+const locations = module.exports = mongoose.model('location', locationsSchema);
