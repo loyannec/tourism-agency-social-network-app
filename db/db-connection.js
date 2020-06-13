@@ -1,4 +1,4 @@
-const { Mongoose } = require('mongoose');
+const mongoose = require('mongoose');
 
 /*
 This class return a valid connection
