@@ -6,24 +6,27 @@ Users schema
 const usersSchema = mongoose.Schema({
     firstName: {
         type: String,
+        trim:true,
         required: true
     },
-    lastname: {
+    lastName: {
+        type: String,
+        trim:true,
+        required: false
+    },
+    email: {
         type: String,
         required: true
     },
-    email: {
-        type: String
-        required: true
-    },
     password: {
-        type: String
+        type: String,
         required: true
     },
-    confirmPassword: {
-        type: String
-        required: true
+    isAdmin: {
+        type: Boolean,
+        required: true,
+        default:false
     }
 });
 
-const users = module.exports = mongoose.model('users', usersSchema);
+const users = module.exports = mongoose.model('user', usersSchema);
