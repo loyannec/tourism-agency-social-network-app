@@ -3,6 +3,17 @@ const mongoose = require("mongoose");
 /*
 Locations schema
 */
+const commentSchema = mongoose.Schema({
+    body:{
+        type: String,
+        required: true
+    },
+    author:{
+        type: String,
+        required: true
+    }
+});
+
 const locationsSchema = mongoose.Schema({
     name: {
         type: String,
@@ -22,14 +33,12 @@ const locationsSchema = mongoose.Schema({
         required: true,
         default:false
     },
-    comments: {
-        type: String,
-        required: true
-    },
+    comments: [commentSchema],
     likes: {
         type: Number,
         required: true
     }
 });
 
-const locations = module.exports = mongoose.model('location', locationsSchema);
+const location = mongoose.model('location', locationsSchema);
+module.exports = location;
