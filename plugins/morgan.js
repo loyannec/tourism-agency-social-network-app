@@ -5,8 +5,4 @@ module.exports = (app) => {
     const morgan = require('morgan');
 
     app.use(morgan('combined'));
-
-    app.get('/', function (req, res) {
-        res.send('hello, world!')
-    });
 };
