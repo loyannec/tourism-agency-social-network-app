@@ -1,1 +1,34 @@
-login dafsdfsfd
+
+<div class="loginContainer">
+    <div>
+    {{#if message}}
+        <div class="{{messageClass}}" >
+        {{#each message}}
+            {{this}}
+        {{/each}}
+        </div>
+    {{/if}}
+    </div>
+
+    <div>
+    <h2> User Login  </h2>
+    </div>
+    
+    <div class="Reg-form">   
+        <form  action="/login" method="post"> 
+                <!-- onsubmit="return validate()" -->
+        <label class="Reg-form-input-control" for="email" >E-mail*</label>
+        <input class="Reg-form-input-control" type="email" id="email" name="email"  required autofocus>
+        <label class="Reg-form-input-control" for="password">Password *</label>
+        <input class="Reg-form-input-control" type="password" id="password" name="password"  required title="Password must be 6 to 20 characters string with at least one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”)">
+
+        <input class="submit-button" type="submit"  id="submit"   value="Login" >   
+    </form>
+  
+    <div class="new-account-box">
+        <p>New to Tourism Site? Create an <a  href="/user/register">New User</a> account.</p>
+    </div>
+    </div>    
+
+</div>
+
