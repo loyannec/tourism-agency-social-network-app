@@ -1,0 +1,133 @@
+body{
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #24292e;
+}
+/*-------------------------footer------------------*/
+/*footer*/
+
+.footer-container img 
+ {
+  max-width: 200px;
+  height : 50px;
+  padding:15px;
+}
+.footer-container
+ {
+    display: flex;  
+    padding:20px;
+    align-items:center; 
+     justify-content: center;  
+     /* background-color: rgb(65, 119, 218); */
+    margin:0px;
+    /* position: fixed;  */
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align:center; 
+    /* color:white */
+ }
+/*-----------------------footer --------------------*/
+/* header */
+.header-container
+ {
+     display: flex;  
+     justify-content: space-between;
+     background-color:rgb(103, 122, 231);
+ 
+     margin : 0px;
+     margin-bottom: 5px;
+ }
+ .header-container img 
+ {
+     max-width: 100px;
+     height : 50px;
+     padding:10px;
+ }
+
+.header-container ul{
+  text-decoration: none;
+  display : flex
+  }
+.header-container  li
+  {
+    list-style: none;
+    padding:10px 10px ;
+    margin:10px;
+    font-size:1.2em
+  }
+
+.header-container  li:hover
+  {
+    background-color:#00B7FF; ;
+    border-radius: 4%;
+  }
+.header-container a
+{
+  text-decoration: none;
+}
+/*---------------------- styles for loginPage ------*/
+.loginContainer
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+}
+
+.Reg-form { 
+  width: 50%; 
+  border-radius: 2%;
+  padding:10px;
+  background-color: lightgray;
+  border-radius: 1%;
+  padding : 10px;
+  align-items: center;
+  justify-items:center;
+  margin:5px;
+}
+
+.Reg-form-input-control 
+{
+     margin:5px;
+     padding:5px;
+     width:90%; 
+}
+ 
+.submit-button
+{
+    border-radius: 5px;
+    margin:5px;
+    padding:5px;
+    width:95%; 
+    background-color: lightblue;
+    line-height: 30px;
+    border-color: none;
+}
+.submit-button:hover 
+{
+    background-color: lightsteelblue;
+    cursor:pointer;
+}
+.new-account-box
+{
+    background-color: whitesmoke  ;
+    border-radius: 5px;
+    line-height: 30px;
+    text-align: center;
+    line-height: 30px;
+    /* width : 50% */
+}
+
+/*responsive form*/
+@media(min-width:750px)
+{
+   .Reg-form
+     { 
+       width: 30%; 
+       /* margin-left: 32%;  */
+   } 
+}
+
+/*---------------------- styles for loginPage ------*/
