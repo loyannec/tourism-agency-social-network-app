@@ -1,0 +1,14 @@
+<div class="validateDiv">
+    {{#if docs}}
+        {{#each docs}}
+            <h2>{{name}}</h2>
+            <p>{{description}}</p>
+            <form action="/validate" method="post" class="mb-3" >            
+                <input type="hidden" id="id" name="id" value="{{_id}}">
+                <button type="submit" class="btn btn-primary">Validate</button>
+            </form>
+        {{/each}}
+    {{else}}
+    <h2>Yay! There are no locations to validate</h2>
+    {{/if}}
+</div>

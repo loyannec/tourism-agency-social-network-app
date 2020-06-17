@@ -6,6 +6,8 @@ const routesManager = require("./routes");
 const port = process.env.port || 3000;
 var mongoDB = require("./db/db-connection");
 var fs = require('fs');
+const locationRouter = require("./routes/location");
+const detailsRouter = require("./routes/details");
 
 const db = mongoDB(()=>{    
     const app = express();
@@ -17,6 +19,8 @@ const db = mongoDB(()=>{
 
   // Register routes
     routesManager(app);
+    locationRouter(app);
+    detailsRouter(app);
 
     console.log("Starting server");
     app.listen(port, () => console.log(`Listening at http://localhost:${port}`));

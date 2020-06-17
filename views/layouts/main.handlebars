@@ -18,6 +18,10 @@
         <a href="/">Home</a>
         {{#if user}} 
             <a href="/logout">Logout</a>
+            <a href="/addLocations">Add new Location</a>
+            {{#if user.isAdmin}}
+            <a href="/validate">Validate Locations</a>
+            {{/if}}
         {{else}}
             <a href="/login">Login</a>
         {{/if}}

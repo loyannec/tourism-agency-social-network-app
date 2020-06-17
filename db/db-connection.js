@@ -2,10 +2,10 @@
 This class return a valid connection
 */
 //const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://localhost:27017/Tourism';
+const url = 'mongodb://localhost:27017/tourismdb';
 
 var mongoose = require('mongoose');
-mongoose.connect(url, {useNewUrlParser: true});
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify:false});
 
 
 module.exports = (callback) => {
