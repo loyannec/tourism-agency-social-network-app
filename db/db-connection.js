@@ -1,18 +1,15 @@
-const mongoose = require('mongoose');
-
 /*
 This class return a valid connection
 */
-const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://localhost:27017';
-
-mongoose.connect(url);
-
 module.exports = (callback) => {
-    MongoClient.connect(url, function(err, client) {
-        if (err) throw err;
+    const mongoose = require('mongoose');
+    const url = 'mongodb://localhost:27017/tourismDb';
 
-        const db = client.db("touristsDb");
-        callback(db, client);
+    mongoose.connect(url, {useNewUrlParser: true});
+    var db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'Connection error:'));
+    db.once('open', function() {
+        console.log("we're connected!");
+        callback(db);
     });
 };

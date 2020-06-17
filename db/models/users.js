@@ -6,12 +6,12 @@ Users schema
 const usersSchema = mongoose.Schema({
     firstName: {
         type: String,
-        trim:true,
+        trim: true,
         required: true
     },
     lastName: {
         type: String,
-        trim:true,
+        trim: true,
         required: false
     },
     email: {
@@ -25,7 +25,7 @@ const usersSchema = mongoose.Schema({
     isAdmin: {
         type: Boolean,
         required: true,
-        default:false
+        default: false
     }
 });
 

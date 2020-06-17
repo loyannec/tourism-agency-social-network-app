@@ -6,7 +6,7 @@ Locations schema
 const locationsSchema = mongoose.Schema({
     name: {
         type: String,
-        trim:true,
+        trim: true,
         required: true
     },
     locationImage: {
@@ -20,7 +20,7 @@ const locationsSchema = mongoose.Schema({
     isValidated: {
         type: Boolean,
         required: true,
-        default:false
+        default: false
     },
     comments: {
         type: String,
