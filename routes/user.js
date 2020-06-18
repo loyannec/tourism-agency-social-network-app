@@ -1,3 +1,6 @@
+var userModel = require("../db/model/users");
+const { getHashedPassword } = require("../routes/auth");
+
 module.exports = (app) => {
     /*
     Display respective login page
@@ -11,6 +14,27 @@ module.exports = (app) => {
     */
     app.get('/user/register', (req, res) => {
         res.render('register');
+    });
+
+    app.post('/user/register', (req,res)=>{
+        var user = new userModel();
+        user.firstName = req.body.firstname;
+        user.lastName = req.body.surname;
+        user.email = req.body.email;
+        user.password = req.body.password;
+        user.isAdmin = false;
+          
+        if(req.body.password != req.body.confirm){
+            res.render("register",{message:"Passwords do not match"});
+        }
+        else{
+            user.password = getHashedPassword(user.password);
+            user.save(function (err, result) {
+                if (err) return console.error(err);
+                console.log("Saved!!");
+                res.redirect("/login");
+            });
+        }
     });
 
     /*
