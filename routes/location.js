@@ -1,4 +1,7 @@
 var location = require("../db/model/locations");
+var fs = require('fs');
+var multer = require('multer');
+var upload = multer({dest: '../uploads/'});
 
 module.exports = (app) => {
     /*
@@ -11,12 +14,14 @@ module.exports = (app) => {
     /*
     Submits new location
     */
-    app.post('/addLocations', (req,res)=>{
+    app.post('/addLocations', upload.single('thumbnail'), (req,res)=>{
+        console.log(req);
         var loc = new location();
         loc.name = req.body.name;
         loc.description = req.body.description;
         loc.likes = 0;
-        loc.locationImage = Buffer.from("Test");
+        loc.locationImage.data = fs.readFileSync(req.file.path);
+        loc.locationImage.contentType = req.file.mimetype;
         loc.comments = [];
 
         //var comment  = loc.comments.create({body:"This is the first Comment", author:"Me"});

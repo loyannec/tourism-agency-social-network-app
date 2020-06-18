@@ -21,8 +21,8 @@ const locationsSchema = mongoose.Schema({
         required: true
     },
     locationImage: {
-        type: Buffer,
-        required: true
+        data: Buffer,
+        contentType: String,
     },
     description: {
         type: String,

@@ -6,6 +6,7 @@ const routesManager = require("./routes");
 const port = process.env.port || 3000;
 var mongoDB = require("./db/db-connection");
 var fs = require('fs');
+var multer = require('multer');
 const locationRouter = require("./routes/location");
 const detailsRouter = require("./routes/details");
 const userRouter = require("./routes/user");
