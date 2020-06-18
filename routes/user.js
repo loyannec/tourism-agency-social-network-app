@@ -43,4 +43,21 @@ module.exports = (app) => {
     app.get('/user/profile/:id', (req, res) => {
         res.render('profile');
     });
+
+    app.get('/myaccount', (req,res)=>{
+        var find = {email:"email@email.com"};
+        var query = userModel.findOne(find).lean();
+        query.exec(function (err, user) {
+            res.render('myaccount', {user});
+        });
+    });
+
+    app.post('/myaccount',(req,res)=>{
+        var id = { _id: req.body.id };
+        var newPassword = getHashedPassword(req.body.password);
+        var update = { password: newPassword };
+        var query = userModel.findOneAndUpdate(id, update,(err,result)=>{
+            res.redirect('/');
+        }); 
+    });
 };
