@@ -38,9 +38,9 @@ module.exports = (app) => {
     });
 
     app.post('/location/validate', (req, res) => {
-        var id = { _id: req.body.id };
+        var ids = { _id: { $in: req.body.id } };
         var update = { isValidated: true };
-        Location.findOneAndUpdate(id, update, () => {
+        Location.updateMany(ids, update, () => {
             res.redirect("/location/validate");
         });
     });
