@@ -24,4 +24,4 @@ const userLocationRecomendationSchema = mongoose.Schema({
     }
 });
 
-const userLocationRecomendation = module.exports = mongoose.model('userLocationRecomendation', userLocationRecomendationSchema);
+module.exports = mongoose.model('userLocationRecomendation', userLocationRecomendationSchema);

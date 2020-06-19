@@ -32,4 +32,4 @@ const locationsSchema = mongoose.Schema({
     }
 });
 
-const locations = module.exports = mongoose.model('location', locationsSchema);
+module.exports = mongoose.model('location', locationsSchema);
