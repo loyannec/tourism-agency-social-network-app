@@ -1,8 +1,4 @@
 module.exports = (app) => {
-    require('./auth')(app);
-    require('./user')(app);
-    require('./location')(app);
-    require('./details')(app);
 
     /*
     GET home page.
