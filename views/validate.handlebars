@@ -1,0 +1,15 @@
+<div class="validateDiv">
+{{#if locations}}
+    {{#each locations}}
+        <h2>{{name}}</h2>
+        <p>{{description}}</p>
+        <form action="/location/validate" method="post" class="mb-3">
+            <input type="hidden" id="id" name="id" value="{{_id}}">
+            <img src="data:{{image.contentType}};base64,{{imageToBase64 image.data}}" width="300">
+            <button type="submit" class="btn btn-primary">Validate</button>
+        </form>
+    {{/each}}
+{{else}}
+    <h2>Yay! There are no locations to validate</h2>
+{{/if}}
+</div>

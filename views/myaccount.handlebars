@@ -1,0 +1,13 @@
+<div>
+    <h1>{{user.firstName}} {{user.lastName}}</h1>
+    <form action="/myaccount" method="POST">      
+        <input type="hidden" id="id" name="id" value="{{user._id}}">
+        <label for="password">New Password</label>
+        <input id="pw" type="password" name="password" class="form-control" pattern="(?=^.{6,20}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$"
+  title="Must contain at least one  number and one uppercase and lowercase letter, one digit, and one special character and between 6-20 characters" required> 
+        <label for="password">Confirm Password</label>
+        <input id="pw" type="password" name="confirm" class="form-control" required> 
+        <br>
+        <input type="submit" class="btn btn-primary">   
+    </form>
+</div>

@@ -1,1 +1,28 @@
-hkhdksj
+<div class="offset-4 col-4 my-5">
+    <p>{{message}}</p>
+    <form
+        action="/user/register"
+        method="POST"
+        oninput="confirm.setCustomValidity(confirm.value != password.value ? 'Passwords do not match.' : '')">
+        <label for="firstName">First Name</label>
+        <input id="fn" type="text" name="firstName" class="form-control" pattern="[a-zA-Z]+" required>
+        <label for="lastName">Surname</label>
+        <input id="sn" type="text" name="lastName" class="form-control" pattern="[a-zA-Z]+" required>
+        <label for="email">Email</label>
+        <input id="em" type="email" name="email" class="form-control" required>
+        <label for="password">Password</label>
+        <input
+            type="password"
+            name="password"
+            class="form-control"
+            pattern="(?=^.{6,20}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$"
+            title="Must contain at least one  number and one uppercase and lowercase letter, one digit, and one special character and between 6-20 characters"
+            required>
+        <label for="password">Confirm Password</label>
+        <input type="password" name="confirm" class="form-control" required>
+        <br>
+        <input type="hidden" name="isAdmin" value="false">
+        <input type="submit" class="btn btn-primary">
+    </form>
+    <a class="mt-3" href="/user/login">Already have an account? Sign in</a>
+</div>

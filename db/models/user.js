@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 /*
 Users schema
 */
-const usersSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
     firstName: {
         type: String,
         trim: true,
@@ -12,7 +12,7 @@ const usersSchema = mongoose.Schema({
     lastName: {
         type: String,
         trim: true,
-        required: false
+        required: true
     },
     email: {
         type: String,
@@ -24,9 +24,8 @@ const usersSchema = mongoose.Schema({
     },
     isAdmin: {
         type: Boolean,
-        required: true,
         default: false
     }
 });
 
-module.exports = mongoose.model('user', usersSchema);
+module.exports = mongoose.model('user', userSchema);
