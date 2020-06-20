@@ -1,0 +1,10 @@
+<div>
+    {{location.name}}
+    {{location.description}}
+    <img src="data:{{location.image.contentType}};base64,{{imageToBase64 location.image.data}}" width="300">
+</div>
+<div>
+    Comments:
+    <input type="text" name="comment" /><input type="button" value="add">
+    <div id="previous-comments" class="previous-comments"></div>
+</div>
