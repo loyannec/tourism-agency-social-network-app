@@ -8,7 +8,7 @@ module.exports = (app) => {
     Display add location form
     */
     app.get('/location/add', (req, res) => {
-        res.render('addlocation');
+        res.render('location/new');
     });
 
     /*
@@ -33,7 +33,7 @@ module.exports = (app) => {
         //List of locations where isValidated is false
         var query = Location.find({ isValidated: false }).lean();
         query.exec(function (err, locations ) {
-            res.render('validate', { locations });
+            res.render('location/validate', { locations });
         });
     });
 

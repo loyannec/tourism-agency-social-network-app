@@ -9,10 +9,10 @@ module.exports = (app) => {
     /*
     GET home page.
     */
-    app.get('/', (req,res)=>{
+    app.get('/', (req, res) => {
         var query = Location.find({ isValidated: true }).lean();
         query.exec(function (err, locations) {
-            res.render('home',{ locations });
+            res.render('home', { locations });
         });
     });
 };
