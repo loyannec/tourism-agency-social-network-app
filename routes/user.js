@@ -50,7 +50,7 @@ module.exports = (app) => {
         var id = { _id: req.body.id };
         var newPassword = getHashedPassword(req.body.password);
         var update = { password: newPassword };
-        userModel.findOneAndUpdate(id, update, () => {
+        User.findOneAndUpdate(id, update, () => {
             res.redirect('/');
         });
     });
