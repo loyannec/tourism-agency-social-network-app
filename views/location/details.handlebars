@@ -6,5 +6,9 @@
 <div>
     Comments:
     <input type="text" id="comment" name="comment" /><input type="button" id="addCommentButton" value="add">
-    <div id="previous-comments" class="previous-comments"></div>
+    <div id="previous-comments" class="previous-comments">
+    {{#each comments}}
+        {{>comment comment=this.comment user=this.user}}
+    {{/each}}
+    </div>
 </div>

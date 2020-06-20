@@ -8,14 +8,41 @@ module.exports = (app) => {
     Display respective details page
     */
     app.get('/location/:id', (req, res) => {
-        Location.findById(req.params.id, (err, location) => {
-            if (err) {
+        const locationId = req.params.id;
+
+        Recommendation.find({ locationId }, (err, recommendations) => {
+            if (err || !recommendations) {
                 res.send(404);
                 return;
             }
 
-            res.render('location/details', { location });
-        }).lean();
+            const location = recommendations[0].locationId;
+            var comments = [];
+
+            for (var recommendationIndex in recommendations) {
+                const recommendation = recommendations[recommendationIndex];
+                for (var commentIndex in recommendation.comments) {
+                    comments.push({
+                        user: recommendation.userId,
+                        comment: recommendation.comments[commentIndex]
+                    });
+                }
+            }
+
+            comments = comments.sort((a, b) => {
+                if (a.comment.date > b.comment.date) {
+                    return -1;
+                } else if (a.comment.date < b.comment.date) {
+                    return 1;
+                }
+                return 0;
+            });
+
+            res.render('location/details', { location, comments });
+        })
+        .populate('userId')
+        .populate('locationId')
+        .lean();
     });
 
     /*
@@ -23,13 +50,15 @@ module.exports = (app) => {
     */
     app.post('/location/:id/comment', (req, res) => {
         User.find((err, users) => {         // TODO: get authenticated user
-            if (err) {
+            if (err || !users) {
                 res.send(404);
                 return;
             }
+
+            const user = users[0];
             const queryData = {
                 locationId: req.params.id,
-                userId: users[0]._id
+                userId: user._id
             };
 
             Recommendation.findOneAndUpdate(queryData, queryData, { new: true, upsert: true }, (err, recommendation) => {
@@ -47,10 +76,15 @@ module.exports = (app) => {
                         res.send(404);
                         return;
                     }
-                    res.send(200);
+                    res.render('partials/comment', {
+                        layout: false,
+                        user: user,
+                        comment: comment.toObject()
+                    });
                 });
             });
-        }).lean();
+        })
+        .lean();
     });
 
     /*

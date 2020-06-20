@@ -6,7 +6,7 @@ $(() => {
 
         $.post(`/location/${locationId}/comment`, { comment }, (data, status) => {
             if (status !== 'success') return;
-            console.log('data: ' + JSON.stringify(data));
+            $('#previous-comments').prepend(data)
         });
     });
 });
