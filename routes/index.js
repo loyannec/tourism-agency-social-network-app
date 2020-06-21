@@ -24,7 +24,7 @@ module.exports = (app) => {
         findLocation= req.body.selectLocation;
         
         try{
-          const locations = await location.find({ name: { $regex: findLocation, $options: 'i' }}).lean();
+          const locations = await location.find( { name: { $regex: findLocation, $options: 'i'} , isValidated: true}).lean();
           res.render('home',{locations});
          }catch(err){
              console.log("error"+err);
