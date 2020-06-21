@@ -4,7 +4,7 @@ module.exports = (app) => {
     require('./auth')(app);
     require('./user')(app);
     require('./location')(app);
-    require('./details')(app);
+    require('./locationDetails')(app);
 
     /*
     GET home page.
