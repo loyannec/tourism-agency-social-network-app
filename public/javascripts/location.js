@@ -1,17 +1,19 @@
 $(() => {
     const locationId = window.location.pathname.split('/')[2];
+    const commentInput = $('#comment');
     const likeClass = 'bg-primary';
     const likeButton = $('#like-button');
     const dislikeButton = $('#dislike-button');
     const likesCount = $('#likes-count');
     const dislikesCount = $('#dislikes-count');
 
-    $('#addCommentButton').click(() => {
-        const comment = $('#comment').val();
-        $.post(`/location/${locationId}/comment`, { comment }, (data, status) => {
-            if (status !== 'success') return;
-            $('#previous-comments').prepend(data);
-        });
+    $('#addCommentButton').click(addComment);
+
+    commentInput.keypress((event) => {
+        const enterKey = 13;
+        if (event.which === enterKey) {
+            addComment();
+        }
     });
 
     likeButton.click(() => {
@@ -33,6 +35,15 @@ $(() => {
             dislikesCount.html(data.dislikes);
         });
     });
+
+    function addComment() {
+        const comment = commentInput.val().trim();
+        $.post(`/location/${locationId}/comment`, { comment }, (data, status) => {
+            if (status !== 'success') return;
+            $('#previous-comments').prepend(data);
+            commentInput.val('');
+        });
+    }
 
     function hasLike() {
         return likeButton.hasClass(likeClass);
