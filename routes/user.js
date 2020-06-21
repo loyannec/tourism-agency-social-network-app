@@ -24,10 +24,21 @@ module.exports = (app) => {
 
     app.post('/user/register', (req, res) => {
         var user = new User(req.body);
-        user.password = getHashedPassword(user.password);
-        user.save(function (err, result) {
-            if (err) throw err;
-            res.redirect("/user/login");
+        var find = { email:user.email };
+        var query = User.count(find,(err,count)=>{
+            if(count<1)
+            {
+                console.log(user);
+                user.password = getHashedPassword(user.password);
+                user.save(function (err, result) {
+                if (err) throw err;
+                    res.redirect("/user/login");
+                });
+            }
+            else
+            {
+                res.render('register',{message:"User email already exists"});
+            }
         });
     });
 
