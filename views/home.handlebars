@@ -1,2 +1,25 @@
-<h1>{{title}}</h1>
-<p>Welcome to Tourism Agency Social Network{{title}}</p>
+<div class=homeContainer>
+    <p>Welcome <b>{{user.firstName}}</b> to Tourism Agency Social Network</p>
+
+    <form id="searchForm" class="formLocationSearch" method="POST" action="/location/search">
+        <input type="text" name= "selectLocation"  placeholder="Search for Locations" title = "Type Location Name">
+        <button type="submit" id="getLocations"><i class="fa fa-search"></i>Search</button>
+    </form>
+
+    {{#if locations}}
+        <div class="location">
+            {{#each locations}}
+                <div class="locationItem">
+                    <img src='data:{{this.image.contentType}};base64,{{imageToBase64 this.image.data}}'>
+                    <br><br>
+                    <p><b><a href="/location/{{this._id}}"> {{this.name}} </a></b> </p>
+                    <p>{{ truncate this.description 150}}</p>
+                    <p>Comments : {{this.comments}}</p>
+                    <p><i class="fa fa-thumbs-o-up"></i>  {{this.likes}}</p>
+                </div>
+            {{/each}}
+        </div>
+    {{else}}
+        <p>No Locations</p>
+    {{/if}}
+</div>

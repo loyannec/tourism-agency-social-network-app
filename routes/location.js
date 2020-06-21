@@ -45,4 +45,15 @@ module.exports = (app) => {
             res.redirect("/location/validate");
         });
     });
+
+    app.post('/location/search', auth.loadUser, async (req, res) => {
+        const findLocation = req.body.selectLocation;
+
+        try {
+            const locations = await Location.find({ name: { $regex: findLocation, $options: 'i' }}).lean();
+            res.render('home', { user: req.user, locations });
+        } catch (err) {
+             console.log("error"+err);
+        }
+    });
 };
