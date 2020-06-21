@@ -1,4 +1,5 @@
 const User = require('./models/user');
+const hash = require('../helpers/hash');
 
 function createCollection(db, collectionName) {
     // Create collection in new db database
@@ -15,7 +16,7 @@ function addAdministrator(callback) {
         email: 'admin@tourism.com',
         firstName: 'System',
         lastName: 'Administrator',
-        password: '1234'
+        password: hash('1234')
     };
     User.findOneAndUpdate(query, update, { new: true, upsert: true }, (err, admin) => {
         if (err) throw err;
