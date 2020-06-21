@@ -1,20 +1,50 @@
-<div>
-    {{location.name}}
-    {{location.description}}
-    <img src="data:{{location.image.contentType}};base64,{{imageToBase64 location.image.data}}" width="300">
+<!-- IMAGE DESCRIPTION -->
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4>{{location.name}}</h4>
+    </div>
+    <div class="card-body">
+        <h6>{{location.description}}</h6>
+        <div class="text-center">
+            <img src="data:{{location.image.contentType}};base64,{{imageToBase64 location.image.data}}" width="300">
+        </div>
+    </div>
+    <!-- LIKES -->
+    <div class="card-footer d-flex justify-content-center align-items-center">
+        <input type="button" id="like-button" value="👍🏻" {{#isTrue recommendation.like}}class="bg-dark"{{/isTrue}}>
+        <span id="likes-count">{{totalLikes.likes}}</span>
+        <input type="button" id="dislike-button" value="👎🏻" {{#isFalse recommendation.like}}class="bg-dark"{{/isFalse}}>
+        <span id="dislikes-count">{{totalLikes.dislikes}}</span>
+    </div>
 </div>
-<div>
-    <input type="button" id="like-button" value="👍🏻" {{#isTrue recommendation.like}}class="bg-primary"{{/isTrue}}>
-    <span id="likes-count">{{totalLikes.likes}}</span>
-    <input type="button" id="dislike-button" value="👎🏻" {{#isFalse recommendation.like}}class="bg-primary"{{/isFalse}}>
-    <span id="dislikes-count">{{totalLikes.dislikes}}</span>
-</div>
-<div>
-    Comments:
-    <input type="text" id="comment" name="comment" /><input type="button" id="addCommentButton" value="add">
-    <div id="previous-comments" class="previous-comments">
+
+<!-- COMMENTS -->
+<div class="card mt-2">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4>Comments</h4>
+    </div>
+    <div class="card-body">
+    <blockquote>
+        <form>
+            <textarea id="comment" name="comment" class="form-control" rows="2" placeholder="Your Comment"></textarea>
+            <button class="btn btn-success bg-dark" id="addCommentButton">
+                <i class="fa fa-comment"></i>Post
+            </button>
+            </div>
+        </form>
+    </blockquote>
+    <ul class="list-group p-4">
     {{#each comments}}
-        {{>comment comment=this user=this.user}}
+    <li class="list-group-item">
+        <blockquote class="col">
+            <p class="lead">{{comment}}</p>
+            <footer class="blockquote-footer">
+            {{>comment comment=this user=this.user}}
+            </footer>
+        </blockquote>
+        </div>
+    </li>
     {{/each}}
+    </ul>
     </div>
 </div>
