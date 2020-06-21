@@ -34,8 +34,7 @@ body{
  {
      display: flex;  
      justify-content: space-between;
-     background-color:rgb(103, 122, 231);
- 
+     background-color:rgb(103, 122, 231); 
      margin : 0px;
      margin-bottom: 5px;
  }
@@ -66,6 +65,7 @@ body{
 .header-container a
 {
   text-decoration: none;
+  color :white
 }
 /*---------------------- styles for loginPage ------*/
 .loginContainer
@@ -131,3 +131,32 @@ body{
 }
 
 /*---------------------- styles for loginPage ------*/
+
+/*---------------styles for home page --------------*/
+.homeContainer
+{
+  margin : 10px
+}
+.location
+{
+  display:flex;
+  /* justify-content: space-between; */
+  justify-content: space-around;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin:30px;
+}
+.locationItem
+{
+  background-color:#00d9ff;
+  flex-direction: row ;
+  display:inline-block;
+  padding :10px ;
+  margin:5px;
+  width:20%
+}
+.locationItem img
+{
+  width:100%
+}
+/*end of ---------------styles for home page --------------*/
