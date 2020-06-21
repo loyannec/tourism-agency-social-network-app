@@ -30,7 +30,7 @@ module.exports = (app) => {
             }
 
             Comment.find({ location: locationId }, (err, comments) => {
-                Recommendation.findOne({ location: locationId }, (err, recommendation) => {
+                Recommendation.findOne({ location: locationId, user: req.user._id }, (err, recommendation) => {
                     countLikesAndDislikesForLocation(locationId, (totalLikes) => {
                         res.render('location/details', {
                             user: req.user,
@@ -54,60 +54,44 @@ module.exports = (app) => {
     Insert comment
     */
     app.post('/location/:id/comment', auth.verifyToken, (req, res) => {
-        User.find((err, users) => {         // TODO: get authenticated user
-            if (err || !users || !users.length) {
+        const user = req.user;
+        const comment = new Comment();
+        comment.user = user._id;
+        comment.location = req.params.id;
+        comment.message = req.body.comment;
+
+        comment.save((err) => {
+            if (err) {
                 res.sendStatus(404);
                 return;
             }
-
-            const user = users[0];          // TODO: update with authenticated user
-            const comment = new Comment();
-            comment.user = user._id;
-            comment.location = req.params.id;
-            comment.message = req.body.comment;
-
-            comment.save((err) => {
-                if (err) {
-                    res.sendStatus(404);
-                    return;
-                }
-                res.render('partials/comment', {
-                    layout: false,
-                    user: user,
-                    comment: comment.toObject()
-                });
+            res.render('partials/comment', {
+                layout: false,
+                user: user,
+                comment: comment.toObject()
             });
-        })
-        .lean();
+        });
     });
 
     /*
     Insert recommendation
     */
     app.post('/location/:id/recommend', auth.verifyToken, (req, res) => {
-        User.find((err, users) => {         // TODO: get authenticated user
-            if (err || !users || !users.length) {
-                res.sendStatus(404);
-                return;
-            }
+        const query = {
+            location: req.params.id,
+            user: req.user._id
+        }
+        const update = { like: req.body.like || null };
+        const options = { new: true, upsert: true };
 
-            const user = users[0];          // TODO: update with authenticated user
-            const query = {
-                location: req.params.id,
-                user: user._id
-            }
-            const update = { like: req.body.like || null };
-            const options = { new: true, upsert: true };
-
-            Recommendation.findOneAndUpdate(query, update, options, (err, recommendation) => {
-                recommendation.save((err) => {
-                    if (err) {
-                        res.sendStatus(404);
-                        return;
-                    }
-                    countLikesAndDislikesForLocation(req.params.id, (count) => {
-                        res.send(count);
-                    });
+        Recommendation.findOneAndUpdate(query, update, options, (err, recommendation) => {
+            recommendation.save((err) => {
+                if (err) {
+                    res.sendStatus(404);
+                    return;
+                }
+                countLikesAndDislikesForLocation(req.params.id, (count) => {
+                    res.send(count);
                 });
             });
         });
