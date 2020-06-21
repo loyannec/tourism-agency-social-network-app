@@ -9,13 +9,6 @@ function getHashedPassword(password) {
 
 module.exports = (app) => {
     /*
-    Display respective login page
-    */
-    app.get('/user/login', (req, res) => {
-        res.render('login');
-    });
-
-    /*
     Display user register page
     */
     app.get('/user/register', (req, res) => {
