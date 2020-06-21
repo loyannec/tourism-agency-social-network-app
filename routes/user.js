@@ -35,13 +35,19 @@ module.exports = (app) => {
     Display respective user profile page
     */
     app.get('/user/:id', (req, res) => {
-        res.render('profile');
+        var {id} = req.params; 
+        var query = User.findOne({_id: id}).lean();
+        query.exec(function (err, user) {
+            console.log(user);
+            res.render('profile', { user });
+        });
     });
 
     app.get('/myaccount', (req, res)=>{
         var find = { email:"email@email.com" };
         var query = User.findOne(find).lean();
         query.exec(function (err, user) {
+            console.log(user);
             res.render('myaccount', { user });
         });
     });
