@@ -1,4 +1,5 @@
 const Location = require("../db/models/location");
+const auth = require("./auth");
 const fs = require('fs');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
@@ -7,14 +8,14 @@ module.exports = (app) => {
     /*
     Display add location form
     */
-    app.get('/location/add', (req, res) => {
-        res.render('location/new');
+    app.get('/location/add', auth.verifyToken, (req, res) => {
+        res.render('location/new', { user: req.user });
     });
 
     /*
     Submits new location
     */
-    app.post('/location/add', upload.single('image'), (req, res) => {
+    app.post('/location/add', upload.single('image'), auth.verifyToken, (req, res) => {
         var location = new Location();
         var imageData = fs.readFileSync(req.file.path);
 
@@ -29,15 +30,15 @@ module.exports = (app) => {
         });
     });
 
-    app.get('/location/validate', (req, res) => {
+    app.get('/location/validate', [auth.verifyToken, auth.isAdministrator], (req, res) => {
         //List of locations where isValidated is false
         var query = Location.find({ isValidated: false }).lean();
         query.exec(function (err, locations ) {
-            res.render('location/validate', { locations });
+            res.render('location/validate', { user: req.user, locations });
         });
     });
 
-    app.post('/location/validate', (req, res) => {
+    app.post('/location/validate', [auth.verifyToken, auth.isAdministrator], (req, res) => {
         var ids = { _id: { $in: req.body.id } };
         var update = { isValidated: true };
         Location.updateMany(ids, update, () => {

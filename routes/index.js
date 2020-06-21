@@ -1,7 +1,7 @@
 const Location = require("../db/models/location");
+const auth = require("./auth");
 
 module.exports = (app) => {
-    require('./auth')(app);
     require('./user')(app);
     require('./location')(app);
     require('./locationDetails')(app);
@@ -9,10 +9,10 @@ module.exports = (app) => {
     /*
     GET home page.
     */
-    app.get('/', (req, res) => {
+    app.get('/', auth.loadUser, (req, res) => {
         var query = Location.find({ isValidated: true }).lean();
         query.exec(function (err, locations) {
-            res.render('home', { locations });
+            res.render('home', { user: req.user, locations });
         });
     });
 };

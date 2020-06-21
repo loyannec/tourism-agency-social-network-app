@@ -2,6 +2,7 @@ const Location = require("../db/models/location");
 const Recommendation = require("../db/models/recommendation");
 const Comment = require("../db/models/comment");
 const User = require("../db/models/user");
+const auth = require("./auth");
 
 function countLikesAndDislikesForLocation(location, callback) {
     Recommendation.count({ location, like: true }, (err, likes) => {
@@ -19,7 +20,7 @@ module.exports = (app) => {
     /*
     Display respective details page
     */
-    app.get('/location/:id', (req, res) => {
+    app.get('/location/:id', auth.verifyToken, (req, res) => {
         const locationId = req.params.id;
 
         Location.findById(locationId, (err, location) => {
@@ -31,7 +32,13 @@ module.exports = (app) => {
             Comment.find({ location: locationId }, (err, comments) => {
                 Recommendation.findOne({ location: locationId }, (err, recommendation) => {
                     countLikesAndDislikesForLocation(locationId, (totalLikes) => {
-                        res.render('location/details', { location, comments, recommendation, totalLikes });
+                        res.render('location/details', {
+                            user: req.user,
+                            location,
+                            comments,
+                            recommendation,
+                            totalLikes
+                        });
                     });
                 })
                 .lean();
@@ -46,7 +53,7 @@ module.exports = (app) => {
     /*
     Insert comment
     */
-    app.post('/location/:id/comment', (req, res) => {
+    app.post('/location/:id/comment', auth.verifyToken, (req, res) => {
         User.find((err, users) => {         // TODO: get authenticated user
             if (err || !users || !users.length) {
                 res.sendStatus(404);
@@ -77,7 +84,7 @@ module.exports = (app) => {
     /*
     Insert recommendation
     */
-    app.post('/location/:id/recommend', (req, res) => {
+    app.post('/location/:id/recommend', auth.verifyToken, (req, res) => {
         User.find((err, users) => {         // TODO: get authenticated user
             if (err || !users || !users.length) {
                 res.sendStatus(404);
