@@ -34,7 +34,7 @@ module.exports = (app) => {
     /*
     Display respective user profile page
     */
-    app.get('/user/profile/:id', (req, res) => {
+    app.get('/user/:id', (req, res) => {
         res.render('profile');
     });
 
