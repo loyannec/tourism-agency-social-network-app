@@ -3,13 +3,14 @@
         <img src="/images/tourism.png" alt=" Tourism" >
     </div>
     <div>
-        <ul style="text-decoration: none;">
+        <ul >
             <li><a href="/">Home</a></li>
             {{#unless user}}
                 <li><a href="/user/login">Login</a></li>
                 <li><a href="/user/register">New User</a></li>
             {{/unless}}
             {{#if user}}
+                <li><a href="/user/profile/{{user._id}}">{{user.firstName}} Profile</a></li>
                 <li><a href="/location/add">Add new Location</a></li>
                 {{#if user.isAdmin}}
                     <li><a href="/location/validate">Validate Locations</a></li>
