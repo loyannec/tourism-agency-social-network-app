@@ -1,26 +1,21 @@
 const mongoose = require("mongoose"),
       Schema = mongoose.Schema;
-const Comment = require("./comment");
 
 /*
 Locations schema
 */
 const recommendationSchema = mongoose.Schema({
-    userId: {
+    user: {
         type: Schema.Types.ObjectId,
         ref: 'user',
         required: true
     },
-    locationId: {
+    location: {
         type: Schema.Types.ObjectId,
         ref: 'location',
         required: true
     },
-    comments: {
-        type: [Comment.schema],
-        default: []
-    },
-    recomends: {
+    like: {
         type: Boolean,
         required: false
     }

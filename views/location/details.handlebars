@@ -4,11 +4,17 @@
     <img src="data:{{location.image.contentType}};base64,{{imageToBase64 location.image.data}}" width="300">
 </div>
 <div>
+    <input type="button" id="like-button" value="👍🏻" {{#isTrue recommendation.like}}class="bg-primary"{{/isTrue}}>
+    <span id="likes-count">{{totalLikes.likes}}</span>
+    <input type="button" id="dislike-button" value="👎🏻" {{#isFalse recommendation.like}}class="bg-primary"{{/isFalse}}>
+    <span id="dislikes-count">{{totalLikes.dislikes}}</span>
+</div>
+<div>
     Comments:
     <input type="text" id="comment" name="comment" /><input type="button" id="addCommentButton" value="add">
     <div id="previous-comments" class="previous-comments">
     {{#each comments}}
-        {{>comment comment=this.comment user=this.user}}
+        {{>comment comment=this user=this.user}}
     {{/each}}
     </div>
 </div>

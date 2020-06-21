@@ -1,22 +1,16 @@
+function createCollection(db, collectionName) {
+    // Create collection in new db database
+    db.createCollection(collectionName, function (err) {
+        if (err) throw err;
+        console.log(`Collection ${collectionName} is created!`);
+    });
+}
+
 require('./db-connection')((db) => {
-    // Create 'users' collection in new db database
-    db.createCollection("users", function(err, result) {
-        if (err) throw err;
-        console.log("Collection is created!");
-        // Close the connection to db when you are done with it
-    });
-
-    db.createCollection("locations", function(err, result) {
-        if (err) throw err;
-        console.log("Collection is created!");
-        // Close the connection to db when you are done with it
-    });
-
-    db.createCollection("recomendations", function(err, result) {
-        if (err) throw err;
-        console.log("Collection is created!");
-        // Close the connection to db when you are done with it
-    });
+    createCollection(db, 'users');
+    createCollection(db, 'locations');
+    createCollection(db, 'comments');
+    createCollection(db, 'recommendations');
 
     setTimeout(() => {
         db.close();

@@ -3,6 +3,18 @@ const Recommendation = require("../db/models/recommendation");
 const Comment = require("../db/models/comment");
 const User = require("../db/models/user");
 
+function countLikesAndDislikesForLocation(location, callback) {
+    Recommendation.count({ location, like: true }, (err, likes) => {
+        if (err) {
+            callback(null);
+            return;
+        }
+        Recommendation.count({ location, like: false }, (err, dislikes) => {
+            callback(err ? null : { likes, dislikes });
+        });
+    });
+}
+
 module.exports = (app) => {
     /*
     Display respective details page
@@ -10,38 +22,24 @@ module.exports = (app) => {
     app.get('/location/:id', (req, res) => {
         const locationId = req.params.id;
 
-        Recommendation.find({ locationId }, (err, recommendations) => {
-            if (err || !recommendations) {
-                res.send(404);
+        Location.findById(locationId, (err, location) => {
+            if (err || !location) {
+                res.sendStatus(404);
                 return;
             }
 
-            const location = recommendations[0].locationId;
-            var comments = [];
-
-            for (var recommendationIndex in recommendations) {
-                const recommendation = recommendations[recommendationIndex];
-                for (var commentIndex in recommendation.comments) {
-                    comments.push({
-                        user: recommendation.userId,
-                        comment: recommendation.comments[commentIndex]
+            Comment.find({ location: locationId }, (err, comments) => {
+                Recommendation.findOne({ location: locationId }, (err, recommendation) => {
+                    countLikesAndDislikesForLocation(locationId, (totalLikes) => {
+                        res.render('location/details', { location, comments, recommendation, totalLikes });
                     });
-                }
-            }
-
-            comments = comments.sort((a, b) => {
-                if (a.comment.date > b.comment.date) {
-                    return -1;
-                } else if (a.comment.date < b.comment.date) {
-                    return 1;
-                }
-                return 0;
-            });
-
-            res.render('location/details', { location, comments });
+                })
+                .lean();
+            })
+            .sort('-date')
+            .populate('user')
+            .lean();
         })
-        .populate('userId')
-        .populate('locationId')
         .lean();
     });
 
@@ -50,37 +48,26 @@ module.exports = (app) => {
     */
     app.post('/location/:id/comment', (req, res) => {
         User.find((err, users) => {         // TODO: get authenticated user
-            if (err || !users) {
-                res.send(404);
+            if (err || !users || !users.length) {
+                res.sendStatus(404);
                 return;
             }
 
-            const user = users[0];
-            const queryData = {
-                locationId: req.params.id,
-                userId: user._id
-            };
+            const user = users[0];          // TODO: update with authenticated user
+            const comment = new Comment();
+            comment.user = user._id;
+            comment.location = req.params.id;
+            comment.message = req.body.comment;
 
-            Recommendation.findOneAndUpdate(queryData, queryData, { new: true, upsert: true }, (err, recommendation) => {
+            comment.save((err) => {
                 if (err) {
-                    res.send(404);
+                    res.sendStatus(404);
                     return;
                 }
-
-                const comment = new Comment();
-                comment.message = req.body.comment;
-                recommendation.comments.push(comment);
-
-                recommendation.save((err) => {
-                    if (err) {
-                        res.send(404);
-                        return;
-                    }
-                    res.render('partials/comment', {
-                        layout: false,
-                        user: user,
-                        comment: comment.toObject()
-                    });
+                res.render('partials/comment', {
+                    layout: false,
+                    user: user,
+                    comment: comment.toObject()
                 });
             });
         })
@@ -90,7 +77,32 @@ module.exports = (app) => {
     /*
     Insert recommendation
     */
-    app.get('/location/:id/recommend', (req, res) => {
-        res.render('details');
+    app.post('/location/:id/recommend', (req, res) => {
+        User.find((err, users) => {         // TODO: get authenticated user
+            if (err || !users || !users.length) {
+                res.sendStatus(404);
+                return;
+            }
+
+            const user = users[0];          // TODO: update with authenticated user
+            const query = {
+                location: req.params.id,
+                user: user._id
+            }
+            const update = { like: req.body.like || null };
+            const options = { new: true, upsert: true };
+
+            Recommendation.findOneAndUpdate(query, update, options, (err, recommendation) => {
+                recommendation.save((err) => {
+                    if (err) {
+                        res.sendStatus(404);
+                        return;
+                    }
+                    countLikesAndDislikesForLocation(req.params.id, (count) => {
+                        res.send(count);
+                    });
+                });
+            });
+        });
     });
 };
