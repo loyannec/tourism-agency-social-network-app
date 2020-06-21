@@ -51,15 +51,17 @@ module.exports = (app) => {
     Display respective user profile page
     */
     app.get('/user/:id', auth.verifyToken, (req, res) => {
-        res.render('user/profile', { user: req.user });
+        var { id } = req.params;
+        console.log(id);
+        var find = { _id:id };
+        var query = User.findOne(find).lean();
+        query.exec(function (err, user) {
+            res.render('user/profile', { user });
+        });
     });
 
     app.get('/myaccount', auth.verifyToken, (req, res)=>{
-        var find = { email:"email@email.com" };
-        var query = User.findOne(find).lean();
-        query.exec(function (err, user) {
-            res.render('user/myaccount', { user });
-        });
+        res.render('user/myaccount', { user: req.user });
     });
 
     app.post('/myaccount', auth.verifyToken, (req, res)=>{

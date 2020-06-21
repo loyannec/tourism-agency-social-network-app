@@ -1,5 +1,6 @@
-<div>
+<div class="offset-4 col-4 my-5">
     <h1>{{user.firstName}} {{user.lastName}}</h1>
+    <p>{{user.email}}</p>
     <form action="/myaccount" method="POST">      
         <input type="hidden" id="id" name="id" value="{{user._id}}">
         <label for="password">New Password</label>

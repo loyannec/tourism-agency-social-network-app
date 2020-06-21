@@ -10,7 +10,7 @@
                 <li><a href="/user/register">New User</a></li>
             {{/unless}}
             {{#if user}}
-                <li><a href="/user/{{user._id}}">{{user.firstName}} Profile</a></li>
+                <li><a href="/myaccount">Profile</a></li>
                 <li><a href="/location/add">Add new Location</a></li>
                 {{#if user.isAdmin}}
                     <li><a href="/location/validate">Validate Locations</a></li>
