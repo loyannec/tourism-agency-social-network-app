@@ -5,8 +5,6 @@ body{
     color: #24292e;
 }
 /*-------------------------footer------------------*/
-/*footer*/
-
 .footer-container img
  {
   max-width: 200px;
@@ -26,10 +24,9 @@ body{
     bottom: 0;
     width: 100%;
     text-align:center;
-    /* color:white */
  }
-/*-----------------------footer --------------------*/
-/* header */
+
+/*----------------------- header --------------------*/
 .header-container
  {
      display: flex;
@@ -66,6 +63,7 @@ body{
   text-decoration: none;
   color: white;
 }
+
 /*---------------------- styles for loginPage ------*/
 .loginContainer
 {
@@ -116,7 +114,6 @@ body{
     line-height: 30px;
     text-align: center;
     line-height: 30px;
-    /* width : 50% */
 }
 
 /*responsive form*/
@@ -125,7 +122,6 @@ body{
    .Reg-form
      {
        width: 30%;
-       /* margin-left: 32%;  */
    }
 }
 
@@ -139,7 +135,6 @@ body{
 .location
 {
   display:flex;
-  /* justify-content: space-between; */
   justify-content: space-around;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;

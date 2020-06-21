@@ -1,1 +1,8 @@
-{{comment.message}} - <a href="/user/{{user._id}}">{{user.firstName}}&nbsp;{{user.lastName}}</a><br>
+<li class="list-group-item">
+    <blockquote class="col">
+        <p class="lead">{{comment.message}}</p>
+        <footer class="blockquote-footer">
+            <a href="/user/{{user._id}}">{{user.firstName}}&nbsp;{{user.lastName}}</a>
+        </footer>
+    </blockquote>
+</li>

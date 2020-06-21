@@ -6,15 +6,15 @@
     <div class="card-body">
         <h6>{{location.description}}</h6>
         <div class="text-center">
-            <img src="data:{{location.image.contentType}};base64,{{imageToBase64 location.image.data}}" width="300">
+            <img src="data:{{location.image.contentType}};base64,{{imageToBase64 location.image.data}}" width="450">
         </div>
     </div>
     <!-- LIKES -->
     <div class="card-footer d-flex justify-content-center align-items-center">
         <input type="button" id="like-button" value="👍🏻" {{#isTrue recommendation.like}}class="bg-dark"{{/isTrue}}>
-        <span id="likes-count">{{totalLikes.likes}}</span>
+        <span id="likes-count" class="ml-1 mr-3">{{totalLikes.likes}}</span>
         <input type="button" id="dislike-button" value="👎🏻" {{#isFalse recommendation.like}}class="bg-dark"{{/isFalse}}>
-        <span id="dislikes-count">{{totalLikes.dislikes}}</span>
+        <span id="dislikes-count" class="ml-1">{{totalLikes.dislikes}}</span>
     </div>
 </div>
 
@@ -24,27 +24,18 @@
         <h4>Comments</h4>
     </div>
     <div class="card-body">
-    <blockquote>
-        <form>
-            <textarea id="comment" name="comment" class="form-control" rows="2" placeholder="Your Comment"></textarea>
-            <button class="btn btn-success bg-dark" id="addCommentButton">
-                <i class="fa fa-comment"></i>Post
-            </button>
-            </div>
-        </form>
-    </blockquote>
-    <ul class="list-group p-4">
-    {{#each comments}}
-    <li class="list-group-item">
-        <blockquote class="col">
-            <p class="lead">{{comment}}</p>
-            <footer class="blockquote-footer">
-            {{>comment comment=this user=this.user}}
-            </footer>
+        <blockquote>
+            <form>
+                <textarea id="comment" name="comment" class="form-control" rows="2" placeholder="Your Comment"></textarea>
+                <button class="btn btn-success bg-dark" id="addCommentButton">
+                    <i class="fa fa-comment">Post</i>
+                </button>
+            </form>
         </blockquote>
-        </div>
-    </li>
-    {{/each}}
-    </ul>
     </div>
+    <ul id="previous-comments" class="list-group p-4">
+        {{#each comments}}
+            {{>comment comment=this user=this.user}}
+        {{/each}}
+    </ul>
 </div>

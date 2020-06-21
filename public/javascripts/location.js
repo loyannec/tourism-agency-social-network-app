@@ -1,7 +1,7 @@
 $(() => {
     const locationId = window.location.pathname.split('/')[2];
     const commentInput = $('#comment');
-    const likeClass = 'bg-primary';
+    const likeClass = 'bg-dark';
     const likeButton = $('#like-button');
     const dislikeButton = $('#dislike-button');
     const likesCount = $('#likes-count');
