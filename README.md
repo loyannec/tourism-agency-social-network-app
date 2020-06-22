@@ -1,5 +1,3 @@
-# tourism-agency-social-network-app
-
 ## project 06 INCO
 
-![Tourism Agency Social Network](https://files.slack.com/files-pri/T0154FQQ4E9-F01609NFH0C/image.png)
+![Tourism Agency Social Network](https://github.com/loyannec/tourism-agency-social-network-app/blob/master/public/images/image.png)
