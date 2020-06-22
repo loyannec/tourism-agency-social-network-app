@@ -6,16 +6,19 @@
         <button type="submit" id="getLocations"><i class="fa fa-search"></i>Search</button>
     </form>
 
-    {{#if locations}}
+    {{#if arrayLocation}}
         <div class="location">
-            {{#each locations}}
+            {{#each arrayLocation}}
                 <div class="locationItem">
                     <img src='data:{{this.image.contentType}};base64,{{imageToBase64 this.image.data}}'>
                     <br><br>
                     <p><b><a href="/location/{{this._id}}"> {{this.name}} </a></b> </p>
                     <p>{{ truncate this.description 150}}</p>
-                    <p>Comments : {{this.comments}}</p>
-                    <p><i class="fa fa-thumbs-o-up"></i>  {{this.likes}}</p>
+                    <!-- LIKES -->
+                    <div class="card-footer d-flex justify-content-center align-items-center">
+                        <span id="likes-count" class="ml-1 mr-3">"👍🏻 :"{{this.likes}}</span>
+                        <span id="dislikes-count" class="ml-1">"👎🏻 :"{{this.dislikes}}</span>
+                    </div>
                 </div>
             {{/each}}
         </div>
