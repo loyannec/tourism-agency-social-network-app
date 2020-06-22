@@ -20,7 +20,7 @@ module.exports = (app) => {
     /*
     Display respective details page
     */
-    app.get('/location/:id', auth.verifyToken, (req, res) => {
+    app.get('/location/:id', auth.loadUser, (req, res) => {
         const locationId = req.params.id;
 
         Location.findById(locationId, (err, location) => {
@@ -30,7 +30,7 @@ module.exports = (app) => {
             }
 
             Comment.find({ location: locationId }, (err, comments) => {
-                Recommendation.findOne({ location: locationId, user: req.user._id }, (err, recommendation) => {
+                Recommendation.findOne({ location: locationId }, (err, recommendation) => {
                     countLikesAndDislikesForLocation(locationId, (totalLikes) => {
                         res.render('location/details', {
                             user: req.user,
