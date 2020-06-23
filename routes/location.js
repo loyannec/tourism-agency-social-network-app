@@ -4,7 +4,7 @@ const fs = require('fs');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const Recommendation = require("../db/models/recommendation");
-
+const getLocations = require("../helpers/getLocations").getLocations;
 
 module.exports = (app) => {
     /*
@@ -50,30 +50,8 @@ module.exports = (app) => {
 
     app.post('/location/search', auth.loadUser, async (req, res) => {
         const findLocation = req.body.selectLocation;
-        var arrayLocation = new Array();
-        var query = Location.find({ name: { $regex: findLocation, $options: 'i'} , isValidated: true}).lean();
-        query.exec(function (err, locations) {
-            locations.forEach(function(location){
-                locationId = location._id;
-                Recommendation.findOne({ location: location._id }, (err, recommendation) => {
-                    countLikesAndDislikesForLocation(location._id, (totalLikes) => {
-                    arrayLocation.push({_id:location._id,name:location.name,description :location.description,image:location.image,likes:totalLikes.likes,dislikes:totalLikes.dislikes });
-                    })
-            })
-            })
-            res.render('home', { user: req.user, arrayLocation });         
-        });
+        var arrayLocation = await getLocations(findLocation);
+        res.render('home', { user: req.user, arrayLocation });
     }); 
 };
 
-function countLikesAndDislikesForLocation(location, callback) {
-    Recommendation.count({ location, like: true }, (err, likes) => {
-        if (err) {
-            callback(null);
-            return;
-        }
-        Recommendation.count({ location, like: false }, (err, dislikes) => {
-            callback(err ? null : { likes, dislikes });
-        });
-    });
-}

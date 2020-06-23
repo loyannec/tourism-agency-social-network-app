@@ -3,18 +3,7 @@ const Recommendation = require("../db/models/recommendation");
 const Comment = require("../db/models/comment");
 const User = require("../db/models/user");
 const auth = require("./auth");
-
-function countLikesAndDislikesForLocation(location, callback) {
-    Recommendation.count({ location, like: true }, (err, likes) => {
-        if (err) {
-            callback(null);
-            return;
-        }
-        Recommendation.count({ location, like: false }, (err, dislikes) => {
-            callback(err ? null : { likes, dislikes });
-        });
-    });
-}
+const countLikesAndDislikesForLocation = require("../helpers/countlikeanddislike").countLikesAndDislikesForLocation;
 
 module.exports = (app) => {
     /*
